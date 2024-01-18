@@ -1,12 +1,7 @@
 ```mermaid
 sequenceDiagram
-selain ->> palvelin: GET https://studies.cs.helsinki.fi/exampleapp/notes
-palvelin -->> selain: HTML-koodi
-selain ->> palvelin: GET https://studies.cs.helsinki.fi/exampleapp/main.css
-palvelin -->> selain: main.css-tiedosto
-selain ->> palvelin: GET https://studies.cs.helsinki.fi/exampleapp/main.js
-palvelin -->> selain: JavaScript-koodia sisältävä main.js-tiedosto
-selain ->> palvelin: Selain suorittaa JavaScript-koodin ja tekee pyynnön palvelimelle GET https://studies.cs.helsinki.fi/exampleapp/data.json
-palvelin --> selain: palvelin palauttaa muistiinpanot JSON-muotoisena raakadatana. Selain suorittaa tapahtumankäsittelijän, joka renderöi muistiinpanot ruudulle käyttäen DOM-apia
+selain ->> palvelin: Kun selaimessa painetaan tallenna-nappia, selain lähettää tekstikenttään syötetyn datan HTTP POST-pyyntönä palvelimelle osoitteeseen new_note. 
+palvelin --> selain: Palvelin vastaa HTTP POST pyyntöön HTTP-statuskoodilla 302, joka on uudelleenohjauspyyntö selaimelle tehdä HTTP GET-pyyntö osoitteeseen notes. Palvelin luo uutta muistiinpanoa vastaavan olion ja laittaa sen taulukkoon nimeltä notes, mutta ei talleta muistiinpanoja tietokantaan.
+selain ->> palvelin: Selain lataa uudelleen muistiinpanojen sivun ja lähettää kolme HTTP-pyyntöä palvelimelle: main.css, main.js ja data.json
 ```
 
